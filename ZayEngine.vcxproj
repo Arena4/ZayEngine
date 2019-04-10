@@ -10,6 +10,17 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\graphics.h" />
+    <ClInclude Include="source\input.h" />
+    <ClInclude Include="source\windowview.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\graphics.cpp" />
+    <ClCompile Include="source\input.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\windowview.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BEC7B7E9-E562-4507-B4B4-8AE604B842EB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -76,17 +87,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="graphics.cpp" />
-    <ClCompile Include="input.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="windowview.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="graphics.h" />
-    <ClInclude Include="input.h" />
-    <ClInclude Include="windowview.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
