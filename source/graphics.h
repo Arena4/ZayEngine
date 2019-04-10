@@ -1,5 +1,5 @@
-#ifndef _Graphics_H_
-#define _Graphics_H_
+#ifndef _GRAPHICS_H_
+#define _GRAPHICS_H_
 
 #include <windows.h>
 

@@ -1,8 +1,7 @@
-#ifndef _WindowView_H_
-#define _WindowView_H_
+#ifndef _WINDOWVIEW_H_
+#define _WINDOWVIEW_H_
 
 #define WIN32_LEAN_AND_MEAN
-
 
 #include <windows.h>
 #include "Input.h"
@@ -36,5 +35,4 @@ private:
 static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 static WindowView* ApplicationHandle = 0;
-
 #endif
