@@ -20,9 +20,7 @@ void Input::Initialize()
 	int i;
 	
 	for(i=0; i<256; i++)
-	{
 		m_keys[i] = false;
-	}
 
 	return;
 }

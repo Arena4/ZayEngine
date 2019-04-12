@@ -2,6 +2,7 @@
 #define _GRAPHICS_H_
 
 #include <windows.h>
+#include "d3d.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -14,13 +15,15 @@ public:
 	Graphics();
 	Graphics(const Graphics&);
 	~Graphics();
-
 	bool Initialize(int, int, HWND);
 	void Shutdown();
 	bool Frame();
 
 private:
 	bool Render();
+
+private:
+	D3D* m_D3D;
 };
 
 #endif

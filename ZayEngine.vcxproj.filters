@@ -20,6 +20,9 @@
     <ClInclude Include="source\windowview.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\d3d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\graphics.cpp">
@@ -32,6 +35,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\windowview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\d3d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -13,7 +13,6 @@ public:
 	WindowView();
 	WindowView(const WindowView&);
 	~WindowView();
-
 	bool Initialize();
 	void Shutdown();
 	void Run();
