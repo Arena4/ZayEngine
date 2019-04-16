@@ -9,35 +9,56 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{6bc67026-b9bb-44b8-a969-28ffc00f01e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\graphics.h">
+    <ClInclude Include="source\windowview.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\windowview.h">
+    <ClInclude Include="source\graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\d3d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\graphics.cpp">
+    <ClCompile Include="source\windowview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\input.cpp">
+    <ClCompile Include="source\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\windowview.cpp">
+    <ClCompile Include="source\input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\d3d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

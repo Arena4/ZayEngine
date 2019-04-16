@@ -3,6 +3,9 @@
 
 #include <windows.h>
 #include "d3d.h"
+#include "camera.h"
+#include "model.h"
+#include "shader.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -24,6 +27,9 @@ private:
 
 private:
 	D3D* m_D3D;
+	ZModel* m_Model;
+	ZCamera* m_Camera;
+	ZShader* m_Shader;
 };
 
 #endif
