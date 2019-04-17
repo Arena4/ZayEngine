@@ -3,10 +3,8 @@
 #ifndef _MODEL_H_
 #define _MODEL_H_
 
-#include <d3d11.h>
-#include <d3d9types.h>
-#include <DirectXMath.h>
-
+#include <d3d10.h>
+#include <directxmath.h>
 using namespace DirectX;
 
 class ZModel
@@ -14,26 +12,26 @@ class ZModel
 private:
 	struct VertexType
 	{
-		XMVECTOR position;
-		XMVECTOR color;
+		XMFLOAT3 position;
+		XMFLOAT4 color;
 	};
 
 public:
 	ZModel();
 	ZModel(const ZModel&);
 	~ZModel();
-	bool Initialize(ID3D11Device* device);
+	bool Initialize(ID3D10Device* device);
 	void Shutdown();
-	void Render(ID3D11DeviceContext* context);
+	void Render(ID3D10Device* context);
 	int GetIndexCount();
 
 private:
-	bool InitializeBuffers(ID3D11Device* device);
+	bool InitializeBuffers(ID3D10Device* device);
 	void ShutdownBuffers();
-	void RenderBuffers(ID3D11DeviceContext* context);
+	void RenderBuffers(ID3D10Device* context);
 
 private:
-	ID3D11Buffer* m_vertexBuffer, *m_indexBuffer;
+	ID3D10Buffer* m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
 };
 

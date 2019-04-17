@@ -1,4 +1,4 @@
-#include "Graphics.h"
+#include "graphics.h"
 
 Graphics::Graphics()
 {
@@ -93,29 +93,29 @@ bool Graphics::Frame()
 
 bool Graphics::Render()
 {
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 	bool result;
-	D3DMATRIX worldMatrix, projectionMatrix;
-	XMMATRIX xViewMatrix, xProjectionMatrix, xWorldMatrix;
 
-	// Clear the buffers to begin the scene.
 	m_D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 
 	m_Camera->Render();
-	m_Camera->GetViewMatrix(xViewMatrix);
+
+	// Get the world, view, and projection matrices from the camera and d3d objects.
 	m_D3D->GetWorldMatrix(worldMatrix);
+	m_Camera->GetViewMatrix(viewMatrix);
 	m_D3D->GetProjectionMatrix(projectionMatrix);
 
-	for(int i = 0; i <4 ; i++)
-	{
-		xWorldMatrix.r[i] = XMVectorSet(worldMatrix.m[i][0], worldMatrix.m[i][1], worldMatrix.m[i][2], worldMatrix.m[i][3]);
-		xProjectionMatrix.r[i] = XMVectorSet(projectionMatrix.m[i][0], projectionMatrix.m[i][1], projectionMatrix.m[i][2], projectionMatrix.m[i][3]);
-	}
-	
-	m_Model->Render(m_D3D->GetDeviceContext());
-	result = m_Shader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), xWorldMatrix, xViewMatrix, xProjectionMatrix);
-	if (!result)
-		return false;
+	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	m_Model->Render(m_D3D->GetDevice());
 
+	// Render the model using the color shader.
+	result = m_Shader->Render(m_D3D->GetDevice(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+	if (!result)
+	{
+		return false;
+	}
+
+	// Present the rendered scene to the screen.
 	m_D3D->EndScene();
 
 	return true;

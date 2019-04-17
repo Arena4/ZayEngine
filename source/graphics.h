@@ -1,7 +1,6 @@
 #ifndef _GRAPHICS_H_
 #define _GRAPHICS_H_
 
-#include <windows.h>
 #include "d3d.h"
 #include "camera.h"
 #include "model.h"

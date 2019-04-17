@@ -11,6 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\camera.cpp" />
+    <ClCompile Include="source\d3d.cpp" />
+    <ClCompile Include="source\graphics.cpp" />
+    <ClCompile Include="source\input.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\model.cpp" />
+    <ClCompile Include="source\shader.cpp" />
+    <ClCompile Include="source\windowview.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="source\camera.h" />
     <ClInclude Include="source\d3d.h" />
     <ClInclude Include="source\graphics.h" />
@@ -20,14 +30,12 @@
     <ClInclude Include="source\windowview.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\camera.cpp" />
-    <ClCompile Include="source\d3d.cpp" />
-    <ClCompile Include="source\graphics.cpp" />
-    <ClCompile Include="source\input.cpp" />
-    <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\model.cpp" />
-    <ClCompile Include="source\shader.cpp" />
-    <ClCompile Include="source\windowview.cpp" />
+    <FxCompile Include="data\Color.ps.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="data\Color.vs.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BEC7B7E9-E562-4507-B4B4-8AE604B842EB}</ProjectGuid>
@@ -79,6 +87,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <FxCompile>
+      <EntryPointName />
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

@@ -3,9 +3,7 @@
 #ifndef _CAMERA_H_
 #define _CAMERA_H_
 
-#include <D3D11.h>
-#include <DirectXMath.h>
-
+#include <directxmath.h>
 using namespace DirectX;
 
 class ZCamera

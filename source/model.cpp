@@ -14,7 +14,7 @@ ZModel::~ZModel()
 {
 }
 
-bool ZModel::Initialize(ID3D11Device * device)
+bool ZModel::Initialize(ID3D10Device* device)
 {
 	bool result = InitializeBuffers(device);
 
@@ -26,7 +26,7 @@ void ZModel::Shutdown()
 	ShutdownBuffers();
 }
 
-void ZModel::Render(ID3D11DeviceContext * context)
+void ZModel::Render(ID3D10Device* context)
 {
 	RenderBuffers(context);
 }
@@ -36,12 +36,12 @@ int ZModel::GetIndexCount()
 	return m_indexCount;
 }
 
-bool ZModel::InitializeBuffers(ID3D11Device * device)
+bool ZModel::InitializeBuffers(ID3D10Device* device)
 {
 	VertexType* vertices;
 	unsigned long* indices;
-	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
-	D3D11_SUBRESOURCE_DATA vertexData, indexData;
+	D3D10_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
+	D3D10_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 
 	m_vertexCount = 3;
@@ -51,30 +51,27 @@ bool ZModel::InitializeBuffers(ID3D11Device * device)
 	indices = new unsigned long[m_indexCount];
 
 	//init vertex & index data.
-	vertices[0].position =  { -1.f, -1.f, 0.f, 0.0f};
-	vertices[0].color = { 0.0f, 1.0f, 0.0f, 1.0f };
+	vertices[0].position =  XMFLOAT3(-1.f, -1.f, 0.f);
+	vertices[0].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
-	vertices[1].position = { 0.0f, 1.0f, 0.0f, 0.0f };
-	vertices[1].color = { 0.0f, 1.0f, 0.0f, 1.0f };
+	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
+	vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
-	vertices[2].position = { 1.0f, -1.0f, 0.0f, 0.0f };
-	vertices[2].color = { 0.0f, 1.0f, 0.0f, 1.0f };
+	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
+	vertices[2].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
 	indices[0] = 0;
 	indices[1] = 1;
 	indices[2] = 2;
 
 	//Setup the description of the static vertex buffer
-	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	vertexBufferDesc.Usage = D3D10_USAGE_DEFAULT;
 	vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
-	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDesc.BindFlags = D3D10_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
-	vertexBufferDesc.StructureByteStride = 0;
 
 	vertexData.pSysMem = vertices;
-	vertexData.SysMemPitch = 0;
-	vertexData.SysMemSlicePitch = 0;
 
 	//Create vertext buffer
 	result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
@@ -82,16 +79,13 @@ bool ZModel::InitializeBuffers(ID3D11Device * device)
 		return false;
 
 	//Setup the description of the static index buffer
-	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	indexBufferDesc.Usage = D3D10_USAGE_DEFAULT;
 	indexBufferDesc.ByteWidth = sizeof(unsigned long) * m_indexCount;
-	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	indexBufferDesc.BindFlags = D3D10_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 	indexBufferDesc.MiscFlags = 0;
-	indexBufferDesc.StructureByteStride = 0;
 
 	indexData.pSysMem = indices;
-	indexData.SysMemPitch = 0;
-	indexData.SysMemSlicePitch = 0;
 	
 	result = device->CreateBuffer(&indexBufferDesc, &indexData, &m_indexBuffer);
 	if (FAILED(result))
@@ -121,7 +115,7 @@ void ZModel::ShutdownBuffers()
 	}
 }
 
-void ZModel::RenderBuffers(ID3D11DeviceContext * context)
+void ZModel::RenderBuffers(ID3D10Device* context)
 {
 	unsigned int stride;
 	unsigned int offset;
@@ -131,5 +125,5 @@ void ZModel::RenderBuffers(ID3D11DeviceContext * context)
 
 	context->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
 	context->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	context->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
