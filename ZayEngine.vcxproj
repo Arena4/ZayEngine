@@ -13,20 +13,24 @@
   <ItemGroup>
     <ClCompile Include="source\camera.cpp" />
     <ClCompile Include="source\d3d.cpp" />
+    <ClCompile Include="source\DDSTextureLoader.cpp" />
     <ClCompile Include="source\graphics.cpp" />
     <ClCompile Include="source\input.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\model.cpp" />
     <ClCompile Include="source\shader.cpp" />
+    <ClCompile Include="source\texture.cpp" />
     <ClCompile Include="source\windowview.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\camera.h" />
     <ClInclude Include="source\d3d.h" />
+    <ClInclude Include="source\DDSTextureLoader.h" />
     <ClInclude Include="source\graphics.h" />
     <ClInclude Include="source\input.h" />
     <ClInclude Include="source\model.h" />
     <ClInclude Include="source\shader.h" />
+    <ClInclude Include="source\texture.h" />
     <ClInclude Include="source\windowview.h" />
   </ItemGroup>
   <ItemGroup>

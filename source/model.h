@@ -3,7 +3,7 @@
 #ifndef _MODEL_H_
 #define _MODEL_H_
 
-#include <d3d10.h>
+#include <d3d11.h>
 #include <directxmath.h>
 using namespace DirectX;
 
@@ -20,18 +20,18 @@ public:
 	ZModel();
 	ZModel(const ZModel&);
 	~ZModel();
-	bool Initialize(ID3D10Device* device);
+	bool Initialize(ID3D11Device* device);
 	void Shutdown();
-	void Render(ID3D10Device* context);
+	void Render(ID3D11DeviceContext* context);
 	int GetIndexCount();
 
 private:
-	bool InitializeBuffers(ID3D10Device* device);
+	bool InitializeBuffers(ID3D11Device* device);
 	void ShutdownBuffers();
-	void RenderBuffers(ID3D10Device* context);
+	void RenderBuffers(ID3D11DeviceContext* context);
 
 private:
-	ID3D10Buffer* m_vertexBuffer, *m_indexBuffer;
+	ID3D11Buffer* m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
 };
 
