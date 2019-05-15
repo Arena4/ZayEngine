@@ -4,6 +4,7 @@ ZModel::ZModel()
 {
 	m_indexCount = 0;
 	m_vertexCount = 0;
+	m_Texture = 0;
 }
 
 ZModel::ZModel(const ZModel &)
@@ -14,15 +15,21 @@ ZModel::~ZModel()
 {
 }
 
-bool ZModel::Initialize(ID3D11Device* device)
+bool ZModel::Initialize(ID3D11Device* device, WCHAR* name)
 {
 	bool result = InitializeBuffers(device);
+
+	if (!result) return false;
+
+	result = LoadTexture(device, name);
+	if (!result) return false;
 
 	return result;
 }
 
 void ZModel::Shutdown()
 {
+	ReleaseTexture();
 	ShutdownBuffers();
 }
 
@@ -34,6 +41,11 @@ void ZModel::Render(ID3D11DeviceContext* context)
 int ZModel::GetIndexCount()
 {
 	return m_indexCount;
+}
+
+ID3D11ShaderResourceView* ZModel::GetTexture()
+{
+	return m_Texture->GetTexture();
 }
 
 bool ZModel::InitializeBuffers(ID3D11Device* device)
@@ -52,13 +64,13 @@ bool ZModel::InitializeBuffers(ID3D11Device* device)
 
 	//init vertex & index data.
 	vertices[0].position =  XMFLOAT3(-1.f, -1.f, 0.f);
-	vertices[0].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[0].texture = XMFLOAT3(0.0f, 1.0f, 0.0f);
 
 	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
-	vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[1].texture = XMFLOAT3(0.5f, 0.0f, 0.0f);
 
 	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
-	vertices[2].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[2].texture = XMFLOAT3(1.0f, 1.0f, 0.0f);
 
 	indices[0] = 0;
 	indices[1] = 1;
@@ -126,4 +138,27 @@ void ZModel::RenderBuffers(ID3D11DeviceContext* context)
 	context->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
 	context->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
+
+bool ZModel::LoadTexture(ID3D11Device* device, WCHAR* name)
+{
+	bool result;
+
+	m_Texture = new ZTexture;
+	if (!m_Texture) return false;
+
+	result = m_Texture->Initialize(device, name);
+	if (!result) return false;
+
+	return true;
+}
+
+void ZModel::ReleaseTexture()
+{
+	if(m_Texture)
+	{
+		m_Texture->Shutdown();
+		delete m_Texture;
+		m_Texture = 0;
+	}
 }

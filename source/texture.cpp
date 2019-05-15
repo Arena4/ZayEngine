@@ -1,4 +1,5 @@
 #include "texture.h"
+#include "DDSTextureLoader.h"
 
 ZTexture::ZTexture()
 {
@@ -15,11 +16,13 @@ ZTexture::~ZTexture()
 	
 }
 
-bool ZTexture::Initialize(ID3D10Device* device, WCHAR* name)
+bool ZTexture::Initialize(ID3D11Device* device, WCHAR* name)
 {
 	HRESULT result;
 
 	//result = D3DX10CreateShaderResourceViewFromFile(device, name, NULL, NULL, &m_texture, NULL);
+
+	result = DirectX::CreateDDSTextureFromFile(device, name, NULL, &m_texture);
 
 	if (FAILED(result))
 		return false;

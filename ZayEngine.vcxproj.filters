@@ -81,5 +81,11 @@
     <FxCompile Include="data\Color.vs.hlsl">
       <Filter>Data</Filter>
     </FxCompile>
+    <FxCompile Include="data\Texture.ps.hlsl">
+      <Filter>Data</Filter>
+    </FxCompile>
+    <FxCompile Include="data\Texture.vs.hlsl">
+      <Filter>Data</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

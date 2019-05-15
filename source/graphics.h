@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "model.h"
 #include "shader.h"
+#include "texture.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -29,6 +30,7 @@ private:
 	ZModel* m_Model;
 	ZCamera* m_Camera;
 	ZShader* m_Shader;
+	ZTexture* m_Texture;
 };
 
 #endif

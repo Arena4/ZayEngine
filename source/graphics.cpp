@@ -6,6 +6,7 @@ Graphics::Graphics()
 	m_Camera = 0;
 	m_Model = 0;
 	m_Shader = 0;
+	m_Texture = 0;
 }
 
 Graphics::Graphics(const Graphics& other)
@@ -40,7 +41,7 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	m_Camera->SetPosition(0.0f, 0.0f, -10.0f);
 
 	m_Model = new ZModel();
-	result = m_Model->Initialize(m_D3D->GetDevice());
+	result = m_Model->Initialize(m_D3D->GetDevice(),  L"data/seafloor.dds");
 
 	m_Shader = new ZShader();
 	result = m_Shader->Initialize(m_D3D->GetDevice(), hwnd);
@@ -109,7 +110,14 @@ bool Graphics::Render()
 	m_Model->Render(m_D3D->GetDeviceContext());
 
 	// Render the model using the color shader.
-	result = m_Shader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+	result = m_Shader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTexture());
+	if (!result)
+	{
+		return false;
+	}
+
+	result = m_Shader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
+		m_Model->GetTexture());
 	if (!result)
 	{
 		return false;
