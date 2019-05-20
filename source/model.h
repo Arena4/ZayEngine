@@ -5,9 +5,11 @@
 
 #include <d3d11.h>
 #include <directxmath.h>
+#include <fstream>
 #include "texture.h"
 
 using namespace DirectX;
+using namespace std;
 
 class ZModel
 {
@@ -19,11 +21,18 @@ private:
 		XMFLOAT3 normal;
 	};
 
+	struct ModelType
+	{
+		float x, y, z;
+		float tu, tv;
+		float nx, ny, nz;
+	};
+
 public:
 	ZModel();
 	ZModel(const ZModel&);
 	~ZModel();
-	bool Initialize(ID3D11Device* device, WCHAR* name);
+	bool Initialize(ID3D11Device* device, char*, WCHAR* name);
 	void Shutdown();
 	void Render(ID3D11DeviceContext* context);
 	int GetIndexCount();
@@ -35,11 +44,14 @@ private:
 	void RenderBuffers(ID3D11DeviceContext* context);
 	bool LoadTexture(ID3D11Device* device, WCHAR* name);
 	void ReleaseTexture();
+	bool LoadModel(char*);
+	void ReleaseModel();
 
 private:
 	ID3D11Buffer* m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
 	ZTexture* m_Texture;
+	ModelType* m_model;
 };
 
 #endif

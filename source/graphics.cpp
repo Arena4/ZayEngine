@@ -43,7 +43,7 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	m_Camera->SetPosition(0.0f, 0.0f, -10.0f);
 
 	m_Model = new ZModel();
-	result = m_Model->Initialize(m_D3D->GetDevice(),  L"data/seafloor.dds");
+	result = m_Model->Initialize(m_D3D->GetDevice(), "data/cube.txt", L"data/seafloor.dds");
 
 	m_Shader = new ZShader();
 	result = m_Shader->Initialize(m_D3D->GetDevice(), hwnd);

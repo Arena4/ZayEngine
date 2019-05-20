@@ -5,6 +5,7 @@ ZModel::ZModel()
 	m_indexCount = 0;
 	m_vertexCount = 0;
 	m_Texture = 0;
+	m_model = 0;
 }
 
 ZModel::ZModel(const ZModel &)
@@ -15,13 +16,17 @@ ZModel::~ZModel()
 {
 }
 
-bool ZModel::Initialize(ID3D11Device* device, WCHAR* name)
+bool ZModel::Initialize(ID3D11Device* device, char* modelFileName, WCHAR* textureFilename)
 {
-	bool result = InitializeBuffers(device);
-
+	bool result;
+	
+	result = LoadModel(modelFileName);
+	if (!result) return false;
+	
+	result = InitializeBuffers(device);
 	if (!result) return false;
 
-	result = LoadTexture(device, name);
+	result = LoadTexture(device, textureFilename);
 	if (!result) return false;
 
 	return result;
@@ -31,6 +36,7 @@ void ZModel::Shutdown()
 {
 	ReleaseTexture();
 	ShutdownBuffers();
+	ReleaseModel();
 }
 
 void ZModel::Render(ID3D11DeviceContext* context)
@@ -55,25 +61,19 @@ bool ZModel::InitializeBuffers(ID3D11Device* device)
 	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
-
-	m_vertexCount = 3;
-	m_indexCount = 3;
 	
 	vertices = new VertexType[m_vertexCount];
 	indices = new unsigned long[m_indexCount];
 
-	//init vertex & index data.
-	vertices[0].position =  XMFLOAT3(-1.f, -1.f, 0.f);
-	vertices[0].texture = XMFLOAT3(0.0f, 1.0f, 0.0f);
-	vertices[0].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
+	//Load the vertex array and index array with data.
+	for(int i = 0; i < m_vertexCount; i++)
+	{
+		vertices[i].position = XMFLOAT3(m_model[i].x, m_model[i].y, m_model[i].z);
+		vertices[i].texture = XMFLOAT3(m_model[i].tu, m_model[i].tv, 0);
+		vertices[i].normal = XMFLOAT3(m_model[i].nx, m_model[i].ny, m_model[i].nz);
 
-	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
-	vertices[1].texture = XMFLOAT3(0.5f, 0.0f, 0.0f);
-	vertices[1].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
-
-	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
-	vertices[2].texture = XMFLOAT3(1.0f, 1.0f, 0.0f);
-	vertices[2].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
+		indices[i] = i;
+	}
 
 	indices[0] = 0;
 	indices[1] = 1;
@@ -163,5 +163,52 @@ void ZModel::ReleaseTexture()
 		m_Texture->Shutdown();
 		delete m_Texture;
 		m_Texture = 0;
+	}
+}
+
+bool ZModel::LoadModel(char* fileName)
+{
+	ifstream fin;
+	char input;
+
+	fin.open(fileName);
+
+	if (fin.fail()) return false;
+
+	fin.get(input);
+	while (input != ':')
+		fin.get(input);
+
+	fin >> m_vertexCount;
+	m_indexCount = m_vertexCount;
+
+	m_model = new ModelType[m_vertexCount];
+	if (!m_model) return false;
+
+	fin.get(input);
+	while (input != ':')
+		fin.get(input);
+
+	fin.get(input);
+	fin.get(input);
+
+	for(int i = 0; i < m_vertexCount; i++)
+	{
+		fin >> m_model[i].x >> m_model[i].y >> m_model[i].z;
+		fin >> m_model[i].tu >> m_model[i].tv;
+		fin >> m_model[i].nx >> m_model[i].ny >> m_model[i].nz;
+	}
+
+	fin.close();
+
+	return true;
+}
+
+void ZModel::ReleaseModel()
+{
+	if(m_model)
+	{
+		delete[] m_model;
+		m_model = 0;
 	}
 }

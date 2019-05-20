@@ -20,7 +20,7 @@ LightShader::~LightShader()
 
 bool LightShader::Initialize(ID3D11Device * device, HWND hwnd)
 {
-	bool result = InitializeShader(device, hwnd, L"data/light.vs.hlsl", L"data/light.ps.hlsl");
+	bool result = InitializeShader(device, hwnd, L"data/Light.vs.hlsl", L"data/Light.ps.hlsl");
 	if (!result) return false;
 	
 	return true;
