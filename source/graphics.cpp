@@ -7,6 +7,8 @@ Graphics::Graphics()
 	m_Model = 0;
 	m_Shader = 0;
 	m_Texture = 0;
+	m_LightShader = 0;
+	m_Light = 0;
 }
 
 Graphics::Graphics(const Graphics& other)
@@ -46,11 +48,30 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	m_Shader = new ZShader();
 	result = m_Shader->Initialize(m_D3D->GetDevice(), hwnd);
 
+	m_LightShader = new LightShader();
+	m_LightShader->Initialize(m_D3D->GetDevice(), hwnd);
+
+	m_Light = new Light();
+	m_Light->SetDiffuseColor(1.0f, 0.0f, 1.0f, 1.0f);
+	m_Light->SetDirection(0.0f, 0.0f, 1.0f);
+
 	return true;
 }
 
 void Graphics::Shutdown()
 {
+	if(m_Light)
+	{
+		delete m_Light;
+		m_Light = 0;
+	}
+
+	if(m_LightShader)
+	{
+		delete m_LightShader;
+		m_LightShader = 0;
+	}
+
 	if(m_Shader)
 	{
 		m_Shader->Shutdown();
@@ -84,15 +105,19 @@ void Graphics::Shutdown()
 bool Graphics::Frame()
 {
 	bool result;
+	static float rotation = 0.0f;
+	rotation += (float)3.14159f * 0.01f;
+	if (rotation > 360.0f)
+		rotation -= 360.0f;
 
-	result = Render();
+	result = Render(rotation);
 	if (!result)
 		return false;
 
 	return true;
 }
 
-bool Graphics::Render()
+bool Graphics::Render(float rotation)
 {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 	bool result;
@@ -106,18 +131,14 @@ bool Graphics::Render()
 	m_Camera->GetViewMatrix(viewMatrix);
 	m_D3D->GetProjectionMatrix(projectionMatrix);
 
+	
+	worldMatrix = worldMatrix * XMMatrixRotationY(rotation);
+
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_Model->Render(m_D3D->GetDeviceContext());
 
 	// Render the model using the color shader.
-	result = m_Shader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTexture());
-	if (!result)
-	{
-		return false;
-	}
-
-	result = m_Shader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix,
-		m_Model->GetTexture());
+	result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTexture(), m_Light->GetDirection(), m_Light->GetDiffuseColor());
 	if (!result)
 	{
 		return false;

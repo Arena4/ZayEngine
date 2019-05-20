@@ -65,12 +65,15 @@ bool ZModel::InitializeBuffers(ID3D11Device* device)
 	//init vertex & index data.
 	vertices[0].position =  XMFLOAT3(-1.f, -1.f, 0.f);
 	vertices[0].texture = XMFLOAT3(0.0f, 1.0f, 0.0f);
+	vertices[0].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
 
 	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
 	vertices[1].texture = XMFLOAT3(0.5f, 0.0f, 0.0f);
+	vertices[1].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
 
 	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
 	vertices[2].texture = XMFLOAT3(1.0f, 1.0f, 0.0f);
+	vertices[2].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
 
 	indices[0] = 0;
 	indices[1] = 1;

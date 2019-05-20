@@ -44,6 +44,12 @@
     <ClCompile Include="source\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\light_shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\windowview.h">
@@ -73,6 +79,12 @@
     <ClInclude Include="source\texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\light_shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="data\Color.ps.hlsl">
@@ -87,5 +99,13 @@
     <FxCompile Include="data\Texture.vs.hlsl">
       <Filter>Data</Filter>
     </FxCompile>
+    <FxCompile Include="data\light.ps.hlsl">
+      <Filter>Data</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\light.vs.hlsl">
+      <Filter>Data</Filter>
+    </None>
   </ItemGroup>
 </Project>

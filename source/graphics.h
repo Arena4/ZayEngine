@@ -6,6 +6,8 @@
 #include "model.h"
 #include "shader.h"
 #include "texture.h"
+#include "light.h"
+#include "light_shader.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -23,7 +25,7 @@ public:
 	bool Frame();
 
 private:
-	bool Render();
+	bool Render(float);
 
 private:
 	D3D* m_D3D;
@@ -31,6 +33,8 @@ private:
 	ZCamera* m_Camera;
 	ZShader* m_Shader;
 	ZTexture* m_Texture;
+	Light* m_Light;
+	LightShader* m_LightShader;
 };
 
 #endif
