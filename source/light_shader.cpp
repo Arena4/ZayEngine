@@ -31,9 +31,9 @@ void LightShader::Shutdown()
 	ShutdownShader();
 }
 
-bool LightShader::Render(ID3D11DeviceContext * deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView * texture, XMVECTOR lightDirection, XMVECTOR diffuseColor)
+bool LightShader::Render(ID3D11DeviceContext * deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView * texture, XMVECTOR lightDirection, XMVECTOR ambientColor, XMVECTOR diffuseColor)
 {
-	bool result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, texture, lightDirection, diffuseColor);
+	bool result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, texture, lightDirection, ambientColor, diffuseColor);
 	if (!result) return false;
 
 	RenderShader(deviceContext, indexCount);
@@ -224,7 +224,7 @@ void LightShader::OutputShaderErrorMessage(ID3D10Blob * errorMessage, HWND hwnd,
 	MessageBox(hwnd, L"Error compile shader. Check shader-errror.txt for message.", shaderFilename, MB_OK);
 }
 
-bool LightShader::SetShaderParameters(ID3D11DeviceContext * deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView * texture, XMVECTOR lightDirection, XMVECTOR diffuseColor)
+bool LightShader::SetShaderParameters(ID3D11DeviceContext * deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView * texture, XMVECTOR lightDirection, XMVECTOR ambientColor,XMVECTOR diffuseColor)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -255,6 +255,7 @@ bool LightShader::SetShaderParameters(ID3D11DeviceContext * deviceContext, XMMAT
 	if (FAILED(result)) return false;
 
 	dataPtr2 = (LightBufferType*)mappedResource.pData;
+	dataPtr2->ambientColor = ambientColor;
 	dataPtr2->diffuseColor = diffuseColor;
 	dataPtr2->lightDirection = lightDirection;
 	dataPtr2->padding = 0.0f;

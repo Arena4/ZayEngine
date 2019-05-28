@@ -8,6 +8,11 @@ Light::~Light()
 {
 }
 
+void Light::SetAmbientColor(float red, float green, float blue, float alpha)
+{
+	m_ambientColor = XMVectorSet(red, green, blue, alpha);
+}
+
 void Light::SetDiffuseColor(float red, float green, float blue, float alpha)
 {
 	m_diffuseColor = XMVectorSet(red, green, blue, alpha);
@@ -26,4 +31,9 @@ XMVECTOR Light::GetDiffuseColor()
 XMVECTOR Light::GetDirection()
 {
 	return m_direction;
+}
+
+XMVECTOR Light::GetAmbientColor()
+{
+	return m_ambientColor;
 }
