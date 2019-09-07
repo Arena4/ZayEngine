@@ -40,12 +40,11 @@ XMVECTOR ZCamera::GetRotation()
 
 void ZCamera::Render()
 {
-	XMVECTOR up, position, lookAt;
 	float yaw, pitch, roll;
+	XMVECTOR up, position, lookAt;
 	XMMATRIX rotationMatrix;
 
 	position = XMVectorSet(m_positionX, m_positionY, m_positionZ, 0);
-
 	up = XMVectorSet(0, 1, 0, 0);
 	lookAt = XMVectorSet(0, 0, 1, 0);
 

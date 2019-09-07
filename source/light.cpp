@@ -1,39 +1,39 @@
 #include "light.h"
 
-Light::Light()
+ZLight::ZLight()
 {
 }
 
-Light::~Light()
+ZLight::~ZLight()
 {
 }
 
-void Light::SetAmbientColor(float red, float green, float blue, float alpha)
+void ZLight::SetAmbientColor(float red, float green, float blue, float alpha)
 {
 	m_ambientColor = XMVectorSet(red, green, blue, alpha);
 }
 
-void Light::SetDiffuseColor(float red, float green, float blue, float alpha)
+void ZLight::SetDiffuseColor(float red, float green, float blue, float alpha)
 {
 	m_diffuseColor = XMVectorSet(red, green, blue, alpha);
 }
 
-void Light::SetDirection(float x, float y, float z)
+void ZLight::SetDirection(float x, float y, float z)
 {
 	m_direction = XMVectorSet(x, y, z, 0);
 }
 
-XMVECTOR Light::GetDiffuseColor()
+XMVECTOR ZLight::GetDiffuseColor()
 {
 	return m_diffuseColor;
 }
 
-XMVECTOR Light::GetDirection()
+XMVECTOR ZLight::GetDirection()
 {
 	return m_direction;
 }
 
-XMVECTOR Light::GetAmbientColor()
+XMVECTOR ZLight::GetAmbientColor()
 {
 	return m_ambientColor;
 }

@@ -48,10 +48,10 @@ bool Graphics::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	m_Shader = new ZShader();
 	result = m_Shader->Initialize(m_D3D->GetDevice(), hwnd);
 
-	m_LightShader = new LightShader();
+	m_LightShader = new ZLightShader();
 	m_LightShader->Initialize(m_D3D->GetDevice(), hwnd);
 
-	m_Light = new Light();
+	m_Light = new ZLight();
 	m_Light->SetAmbientColor(0.15f, 0.15f, 0.15f, 1.0f);
 	m_Light->SetDiffuseColor(1.0f, 0.0f, 1.0f, 1.0f);
 	m_Light->SetDirection(1.0f, 0.0f, 0.0f);

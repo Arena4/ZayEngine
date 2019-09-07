@@ -1,6 +1,6 @@
 #include "light_shader.h"
 
-LightShader::LightShader()
+ZLightShader::ZLightShader()
 {
 	m_vertexShader = 0;
 	m_pixelShader = 0;
@@ -9,16 +9,16 @@ LightShader::LightShader()
 	m_matrixBuffer = 0;
 }
 
-LightShader::LightShader(const LightShader &)
+ZLightShader::ZLightShader(const ZLightShader &)
 {
 }
 
-LightShader::~LightShader()
+ZLightShader::~ZLightShader()
 {
 
 }
 
-bool LightShader::Initialize(ID3D11Device * device, HWND hwnd)
+bool ZLightShader::Initialize(ID3D11Device * device, HWND hwnd)
 {
 	bool result = InitializeShader(device, hwnd, L"data/Light.vs.hlsl", L"data/Light.ps.hlsl");
 	if (!result) return false;
@@ -26,12 +26,12 @@ bool LightShader::Initialize(ID3D11Device * device, HWND hwnd)
 	return true;
 }
 
-void LightShader::Shutdown()
+void ZLightShader::Shutdown()
 {
 	ShutdownShader();
 }
 
-bool LightShader::Render(ID3D11DeviceContext * deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView * texture, XMVECTOR lightDirection, XMVECTOR ambientColor, XMVECTOR diffuseColor)
+bool ZLightShader::Render(ID3D11DeviceContext * deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView * texture, XMVECTOR lightDirection, XMVECTOR ambientColor, XMVECTOR diffuseColor)
 {
 	bool result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, texture, lightDirection, ambientColor, diffuseColor);
 	if (!result) return false;
@@ -41,7 +41,7 @@ bool LightShader::Render(ID3D11DeviceContext * deviceContext, int indexCount, XM
 	return true;
 }
 
-bool LightShader::InitializeShader(ID3D11Device * device, HWND hwnd, WCHAR * vsFilename, WCHAR * psFilename)
+bool ZLightShader::InitializeShader(ID3D11Device * device, HWND hwnd, WCHAR * vsFilename, WCHAR * psFilename)
 {
 	HRESULT result;
 	ID3D10Blob* errorMessage;
@@ -164,7 +164,7 @@ bool LightShader::InitializeShader(ID3D11Device * device, HWND hwnd, WCHAR * vsF
 	return true;
 }
 
-void LightShader::ShutdownShader()
+void ZLightShader::ShutdownShader()
 {
 	if(m_lightBuffer)
 	{
@@ -203,7 +203,7 @@ void LightShader::ShutdownShader()
 	}
 }
 
-void LightShader::OutputShaderErrorMessage(ID3D10Blob * errorMessage, HWND hwnd, WCHAR * shaderFilename)
+void ZLightShader::OutputShaderErrorMessage(ID3D10Blob * errorMessage, HWND hwnd, WCHAR * shaderFilename)
 {
 	char* compileErrors;
 	unsigned long bufferSize, i;
@@ -224,7 +224,7 @@ void LightShader::OutputShaderErrorMessage(ID3D10Blob * errorMessage, HWND hwnd,
 	MessageBox(hwnd, L"Error compile shader. Check shader-errror.txt for message.", shaderFilename, MB_OK);
 }
 
-bool LightShader::SetShaderParameters(ID3D11DeviceContext * deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView * texture, XMVECTOR lightDirection, XMVECTOR ambientColor,XMVECTOR diffuseColor)
+bool ZLightShader::SetShaderParameters(ID3D11DeviceContext * deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView * texture, XMVECTOR lightDirection, XMVECTOR ambientColor,XMVECTOR diffuseColor)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -267,7 +267,7 @@ bool LightShader::SetShaderParameters(ID3D11DeviceContext * deviceContext, XMMAT
 	return true;
 }
 
-void LightShader::RenderShader(ID3D11DeviceContext * deviceContext, int indexCount)
+void ZLightShader::RenderShader(ID3D11DeviceContext * deviceContext, int indexCount)
 {
 	deviceContext->IASetInputLayout(m_layout);
 	deviceContext->VSSetShader(m_vertexShader, NULL, 0);

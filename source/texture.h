@@ -7,11 +7,15 @@ class ZTexture
 {
 public:
 	ZTexture();
+	
 	ZTexture(const ZTexture&);
+	
 	~ZTexture();
 
 	bool Initialize(ID3D11Device* device, WCHAR* name);
+	
 	void Shutdown();
+	
 	ID3D11ShaderResourceView* GetTexture();
 
 private:

@@ -18,23 +18,35 @@ class Graphics
 {
 public:
 	Graphics();
+	
 	Graphics(const Graphics&);
+	
 	~Graphics();
-	bool Initialize(int, int, HWND);
-	void Shutdown();
+	
+	bool Initialize(int screenWidth, int screenHeight, HWND hwnd);
+	
 	bool Frame();
 
+	void Shutdown();
+	
 private:
+
 	bool Render(float);
 
 private:
 	D3D* m_D3D;
+	
 	ZModel* m_Model;
+	
 	ZCamera* m_Camera;
+	
 	ZShader* m_Shader;
+	
 	ZTexture* m_Texture;
-	Light* m_Light;
-	LightShader* m_LightShader;
+	
+	ZLight* m_Light;
+	
+	ZLightShader* m_LightShader;
 };
 
 #endif

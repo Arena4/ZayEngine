@@ -5,23 +5,30 @@
 
 using namespace DirectX;
 
-class Light
+class ZLight
 {
 public:
-	Light();
-	~Light();
+	ZLight();
+	
+	~ZLight();
 
 	void SetAmbientColor(float, float, float, float);
+	
 	void SetDiffuseColor(float, float, float, float);
+	
 	void SetDirection(float, float, float);
 
 	XMVECTOR GetDiffuseColor();
+	
 	XMVECTOR GetDirection();
+	
 	XMVECTOR GetAmbientColor();
 
 private:
 	XMVECTOR m_diffuseColor;
+	
 	XMVECTOR m_direction;
+	
 	XMVECTOR m_ambientColor;
 };
 
