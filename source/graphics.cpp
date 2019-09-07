@@ -123,7 +123,8 @@ bool Graphics::Render(float rotation)
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 	bool result;
 
-	m_D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+	float bgColor = 30.0f / 255;
+	m_D3D->BeginScene(bgColor, bgColor, bgColor, bgColor);
 
 	m_Camera->Render();
 

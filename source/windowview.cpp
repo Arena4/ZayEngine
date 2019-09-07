@@ -116,7 +116,7 @@ bool WindowView::Frame()
 	}
 
 	result = m_Graphics->Frame();
-	if(!result)
+	if (!result)
 	{
 		return false;
 	}
@@ -141,6 +141,21 @@ LRESULT CALLBACK WindowView::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam,
 			return 0;
 		}
 
+		case WM_LBUTTONDBLCLK:
+		{
+			return 0;
+		}
+
+		case WM_LBUTTONDOWN:
+		{
+			return 0;
+		}
+
+		case WM_LBUTTONUP:
+		{
+			return 0;
+		}
+
 		default:
 		{
 			return DefWindowProc(hwnd, umsg, wparam, lparam);
@@ -158,7 +173,7 @@ void WindowView::InitializeWindows(int& screenWidth, int& screenHeight)
 	ApplicationHandle = this;
 	m_hinstance = GetModuleHandle(NULL);
 
-	m_applicationName = L"Engine";
+	m_applicationName = L"Zay";
 
 	wc.style         = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 	wc.lpfnWndProc   = WndProc;
@@ -168,7 +183,7 @@ void WindowView::InitializeWindows(int& screenWidth, int& screenHeight)
 	wc.hIcon		 = LoadIcon(NULL, IDI_WINLOGO);
 	wc.hIconSm       = wc.hIcon;
 	wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wc.hbrBackground = CreateSolidBrush(RGB(30, 30, 30));
 	wc.lpszMenuName  = NULL;
 	wc.lpszClassName = m_applicationName;
 	wc.cbSize        = sizeof(WNDCLASSEX);
@@ -196,7 +211,7 @@ void WindowView::InitializeWindows(int& screenWidth, int& screenHeight)
 		screenWidth  = 800;
 		screenHeight = 600;
 
-		posX = (GetSystemMetrics(SM_CXSCREEN) - screenWidth)  / 2;
+		posX = (GetSystemMetrics(SM_CXSCREEN) - screenWidth)  / 4;
 		posY = (GetSystemMetrics(SM_CYSCREEN) - screenHeight) / 2;
 	}
 
